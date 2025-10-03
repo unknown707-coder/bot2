@@ -1,0 +1,14 @@
+{
+  "step": "",
+  "data": [
+    {
+      "text": "salom",
+      "answers": [
+        {
+          "type": "text",
+          "content": "<b>Assalomu Alaykum</b>"
+        }
+      ]
+    }
+  ]
+}
