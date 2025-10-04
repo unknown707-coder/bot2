@@ -59,9 +59,11 @@ export function removeTriggerByText(text) {
 
 export function findByTrigger(inputText) {
   const cleaned = inputText.toLowerCase().replace(/[^\w\s]/gi, "").trim();
-  return triggers.find((item) =>
-    cleaned.includes(item.trigger.toLowerCase().trim())
-  );
+
+  return db.data.find((item) => {
+    const trigger = item.text.toLowerCase().trim();
+    return cleaned.includes(trigger);
+  });
 }
 
 
