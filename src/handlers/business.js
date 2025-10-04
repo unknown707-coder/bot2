@@ -248,7 +248,10 @@ export function setupBusinessHandlers(bot) {
       } catch (eLast) {
         pushErr("last_resort_no_parse_mode", eLast);
       }
+    }
 
+    // Notify admin of all errors after processing
+    {
       const diag = {
         chat_id: chatId,
         business_connection_id: bId,
@@ -261,7 +264,7 @@ export function setupBusinessHandlers(bot) {
       try {
         await ctx.telegram.sendMessage(
           Number(ADMIN_ID),
-          `🚨 Biznesga javob yuborilmadi. Diagnostic:\n` +
+          `📬 Biznesga avtomatik javob natijasi:\n` +
             JSON.stringify(diag, null, 2)
         );
       } catch (e) {

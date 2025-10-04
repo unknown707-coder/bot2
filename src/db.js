@@ -57,9 +57,13 @@ export function removeTriggerByText(text) {
   saveDb();
 }
 
-export function findByTrigger(text) {
-  return db.data.find((it) => it.text === text);
+export function findByTrigger(inputText) {
+  const cleaned = inputText.toLowerCase().replace(/[^\w\s]/gi, "").trim();
+  return triggers.find((item) =>
+    cleaned.includes(item.trigger.toLowerCase().trim())
+  );
 }
+
 
 export function cleanTgEmojiTags() {
   let changed = false;
