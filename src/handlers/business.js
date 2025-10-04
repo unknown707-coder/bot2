@@ -10,8 +10,6 @@ export function setupBusinessHandlers(bot) {
     const text = msg.text ?? "";
     if (!text) return;
 
-    console.log("📩 business_message (raw):", JSON.stringify(msg, null, 2));
-
     const item = DB.findByTrigger(text);
     if (!item) return;
 
@@ -118,7 +116,6 @@ export function setupBusinessHandlers(bot) {
         caption: originalCaption,
       });
       if (r1.ok) {
-        console.log("Sent via: chat_id + business_connection_id");
         continue;
       } else {
         pushErr(
@@ -143,9 +140,6 @@ export function setupBusinessHandlers(bot) {
             caption: cleanedCaption,
           });
           if (r1retry.ok) {
-            console.log(
-              "Sent via chat_id + bId after stripping <tg-emoji> tags"
-            );
             continue;
           } else {
             pushErr(
@@ -162,7 +156,6 @@ export function setupBusinessHandlers(bot) {
         caption: originalCaption,
       });
       if (r2.ok) {
-        console.log("Sent via: business_connection_id only");
         continue;
       } else {
         pushErr("business_connection_id only", r2.error || "unknown error");
@@ -184,7 +177,6 @@ export function setupBusinessHandlers(bot) {
             caption: cleanedCaption2,
           });
           if (r2retry.ok) {
-            console.log("Sent via bId only after stripping <tg-emoji> tags");
             continue;
           } else {
             pushErr(
@@ -201,9 +193,6 @@ export function setupBusinessHandlers(bot) {
         caption: originalCaption,
       });
       if (r3.ok) {
-        console.log(
-          "Sent via: plain sendMessage/sendPhoto (chat_id) — diagnostic"
-        );
         continue;
       } else {
         pushErr("plain chat_id send (diagnostic)", r3.error || "unknown error");
@@ -225,7 +214,6 @@ export function setupBusinessHandlers(bot) {
             caption: cleanedCaption3,
           });
           if (r3retry.ok) {
-            console.log("Sent via plain chat after stripping <tg-emoji> tags");
             continue;
           } else {
             pushErr(
@@ -256,7 +244,6 @@ export function setupBusinessHandlers(bot) {
               stripTgEmojiTagsKeepInner(originalCaption) || originalCaption,
           });
         }
-        console.log("Sent without parse_mode as last resort");
         continue;
       } catch (eLast) {
         pushErr("last_resort_no_parse_mode", eLast);
