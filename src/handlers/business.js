@@ -12,6 +12,8 @@ export function setupBusinessHandlers(bot) {
 
     const item = DB.findByTrigger(text);
     if (!item) return;
+    const errors = [];
+
 
     for (let [i, ans] of item.answers.entries()) {
       if (ans.type !== "text" && ans.type !== "photo") continue;
